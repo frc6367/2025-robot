@@ -68,10 +68,17 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     double forward = gamepad.getRawAxis(1);
+    double spin = gamepad.getRawAxis(2);
     if (forward< -.4) {
       dt.driveForward();
     } else if (forward>.4) {
       dt.driveBack();
+    }
+    else if (spin<-.4) {
+      dt.spinLeft();
+    }
+    else if (spin>.4) {
+      dt.spinRight();
     }
     else{
       dt.stop();  

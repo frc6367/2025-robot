@@ -35,6 +35,16 @@ public class DriveTrain{
         backright.set(0.5);
         frontright.set(0.5);
     }
-
-
+    public void spinLeft(){
+        backleft.set(-0.5);
+        frontleft.set(-0.5);
+        backright.set(-0.5);
+        frontright.set(-0.5);
+    }
+    public void spinRight(){
+        backleft.set(0.5);
+        frontleft.set(0.5);
+        backright.set(0.5);
+        frontright.set(0.5);
+    }
 }
