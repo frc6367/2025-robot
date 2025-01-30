@@ -59,4 +59,11 @@ public class DriveTrain{
         backright.set(0.5);
         frontright.set(-0.5);
     }
+    public void setMotors(double fl, double fr, double bl, double br){
+        backleft.set(bl);
+        frontleft.set(fl);
+        backright.set(br);
+        frontright.set(fr);
+
+    }
 }

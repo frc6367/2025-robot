@@ -70,7 +70,10 @@ public class Robot extends TimedRobot {
     double forward = gamepad.getRawAxis(1);
     double spin = gamepad.getRawAxis(2);
     double horizontal = gamepad.getRawAxis(0);
-    if (forward< -.4) {
+    if (forward<-0.4 && horizontal<-0.4){
+      dt.setMotors(0,0.5,-0.5,0);
+    }
+    else if (forward< -.4) {
       dt.driveForward();
     } else if (forward>.4) {
       dt.driveBack();
