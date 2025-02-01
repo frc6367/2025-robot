@@ -67,33 +67,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    double forward = gamepad.getRawAxis(1);
+    double vertical = gamepad.getRawAxis(1)*-1;
     double spin = gamepad.getRawAxis(2);
     double horizontal = gamepad.getRawAxis(0);
-    if (forward<-0.4 && horizontal<-0.4){
-      dt.setMotors(0,0.5,-0.5,0);
-    }
-    else if (forward< -.4) {
-      dt.driveForward();
-    } else if (forward>.4) {
-      dt.driveBack();
-    }
-    else if (horizontal>0.4) {
-      dt.strafeRightt();
-    }
-    else if (horizontal<-0.4) {
-      dt.strafeLeftt();
-    }
-    else if (spin<-.4) {
-      dt.spinLeft();
-    }
-    else if (spin>.4) {
-      dt.spinRight();
-    }
-    else{
-      dt.stop();  
-    }
-    
-  }  
+    dt.setMotors(vertical + horizontal + spin, vertical - horizontal + spin, vertical - horizontal - spin, vertical + horizontal - spin);
+  }
 
 }
