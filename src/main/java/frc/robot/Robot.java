@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -70,7 +71,14 @@ public class Robot extends TimedRobot {
     double vertical = gamepad.getRawAxis(1)*-1;
     double spin = gamepad.getRawAxis(2);
     double horizontal = gamepad.getRawAxis(0);
-    dt.setMotors(vertical + horizontal + spin, vertical - horizontal + spin, vertical - horizontal - spin, vertical + horizontal - spin);
+    double maxSpeed = 0.8;
+    double max = Math.max(Math.abs(vertical) + Math.abs(horizontal) + Math.abs(spin), 1);
+    double fl = (vertical + horizontal + spin)/max;
+    double bl = (vertical - horizontal + spin)/max;
+    double fr = (vertical - horizontal - spin)/max;
+    double br = (vertical + horizontal - spin)/max;
+    SmartDashboard.putNumber("Max Speed", maxSpeed);
+    dt.setMotors(fl, bl, fr, br);
   }
 
 }
