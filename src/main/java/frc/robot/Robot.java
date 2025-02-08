@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
   
   private DriveTrain dt=new DriveTrain();
-  private Joystick gamepad=new Joystick(0); 
+  private Joystick gamepad=new Joystick(Constant.JOYSTICK); 
   
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -68,9 +68,9 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    double vertical = gamepad.getRawAxis(1)*-1;
-    double spin = gamepad.getRawAxis(2);
-    double horizontal = gamepad.getRawAxis(0);
+    double vertical = gamepad.getRawAxis(Constant.LEFT_AXIS_Y)*-1;
+    double spin = gamepad.getRawAxis(Constant.LEFT_AXIS_X);
+    double horizontal = gamepad.getRawAxis(Constant.RIGHT_AXIS_X);
     double maxSpeed = 0.8;
     double max = Math.max(Math.abs(vertical) + Math.abs(horizontal) + Math.abs(spin), 1);
     double fl = (vertical + horizontal + spin)/max;
