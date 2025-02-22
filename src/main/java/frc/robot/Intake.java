@@ -1,20 +1,55 @@
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.spark.SparkMax;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+
+//motors are sparks
 
 public class Intake {
-    TalonSRX arm;
-    TalonSRX roller;
+    SparkMax arm;
+    SparkMax roller;
 
     public Intake(){
-        this.arm=new TalonSRX(0);
-        this.roller=new TalonSRX(0); 
+        this.arm= new SparkMax(5,MotorType.kBrushless); 
+        this.roller= new SparkMax(6,MotorType.kBrushless); 
+    }
+
+    public double getArmEconder() {
+        return this.arm.getAbsoluteEncoder().getPosition();
+    }
+
+    public void putReadings(){
+        SmartDashboard.putNumber("arm encoder",getArmEconder());
+    }
+
+    public void armUp(){
+        arm.set(0.5);
+    }
+
+    public void armDown(){
+        arm.set(-0.5);
+    }
+
+    public void rollerOut(){
+        arm.set(0.5);
+    }
+
+    public void rollerIn(){
+        arm.set(-0.5);
     }
     
-    public void stop(){
-        this.arm.set(TalonSRXControlMode.PercentOutput,0);
-        this.roller.set(TalonSRXControlMode.PercentOutput,0);
+    public void stopArm(){
+        this.arm.set(0);
     }
+
+    public void stopRoller(){
+        this.roller.set(0);    
+    }
+
+    
+
     
 }

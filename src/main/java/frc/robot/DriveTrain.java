@@ -31,4 +31,11 @@ public class DriveTrain{
         frontright.set(TalonSRXControlMode.PercentOutput, fr);
 
     }
+
+    // helps the driver do more percise turns by slowing down when the robot is turning left
+    // if (driverController.getBumper(Hand.kleft)) turnPower *= 0.5; - when using arcade drive 
+
+    // what kind of driving system are we using? 
+
+
 }

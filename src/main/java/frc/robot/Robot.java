@@ -4,9 +4,12 @@
 
 package frc.robot;
 
+// import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -16,9 +19,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends TimedRobot {
   
+  //make instances of each of the subsystems 
   private DriveTrain dt=new DriveTrain();
   private Joystick gamepad=new Joystick(Constant.JOYSTICK); 
-  
+  private final Elevator elevator = new Elevator();
+  public static CoralEffector coralEffector = new CoralEffector(); 
+  public static Intake intake = new Intake();
+  // public AnalogInput coralSensor = new AnalogInput(0);
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -36,7 +44,18 @@ public class Robot extends TimedRobot {
    * SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+    elevator.updateTelemetry();
+
+    coralEffector.putReadings();
+
+  }
+
+  @Override
+  public void simulationPeriodic() {
+    // Update the simulation model.
+    elevator.simulationPeriodic();
+  }
 
   /**
    * This autonomous (along with the chooser code above) shows how to select between different
@@ -79,6 +98,39 @@ public class Robot extends TimedRobot {
     double br = (vertical + horizontal - spin)/max;
     SmartDashboard.putNumber("Max Speed", maxSpeed);
     dt.setMotors(fl, bl, fr, br);
+
+    // for the elevator
+    if (gamepad.getTrigger()) {
+      // Here, we set the constant setpoint of 0.75 meters.
+      elevator.reachGoal(Constant.kSetpointMeters);
+    } else {
+      // Otherwise, we update the setpoint to 0.
+      elevator.reachGoal(0.0);
+    }
+    
+    //doing the x-button 
+    boolean XPressed = gamepad.getRawButton(Constant.button_X);
+    if (XPressed){
+      coralEffector.takeIn();
+    }
+    else{
+      coralEffector.stop();
+    }
+
+    
+  }
+
+
+  @Override
+  public void disabledInit() {
+    // This just makes sure that our simulation code knows that the motor's off.
+    elevator.stop();
+  }
+
+  @Override
+  public void close() {
+    elevator.close();
+    // super.close();
   }
 
 }
