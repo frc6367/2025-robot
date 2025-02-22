@@ -55,7 +55,6 @@ public class CoralEffector {
             this.stop();
         }
     }
-        
 
     public void shootAngle(double speed){
         this.setMotors(0.6,0.8);
@@ -64,6 +63,7 @@ public class CoralEffector {
 
     public void shootStraight(double speed){
         // run at the same speed 
+        this.sawCoral = false;
         this.setMotors(0.86);    
     }
 
@@ -74,7 +74,6 @@ public class CoralEffector {
     public void putReadings(){
         SmartDashboard.putNumber("coral sensor", coralSensor.getValue());
     }
-
 
 
     

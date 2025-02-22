@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import org.opencv.ml.RTrees;
+
 // import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -48,6 +50,7 @@ public class Robot extends TimedRobot {
     elevator.updateTelemetry();
 
     coralEffector.putReadings();
+    intake.putReadings();
 
   }
 
@@ -107,17 +110,49 @@ public class Robot extends TimedRobot {
       // Otherwise, we update the setpoint to 0.
       elevator.reachGoal(0.0);
     }
-    
+
     //doing the x-button 
     boolean XPressed = gamepad.getRawButton(Constant.button_X);
+    boolean YPressed = gamepad.getRawButton(Constant.button_Y);
     if (XPressed){
       coralEffector.takeIn();
+    } else if (YPressed) {
+      coralEffector.shootStraight(0.0);
     }
-    else{
+    else {
       coralEffector.stop();
     }
 
+    boolean APressed = gamepad.getRawButton(Constant.button_A);
+    boolean BPressed = gamepad.getRawButton(Constant.button_B);
+
+
+    if (APressed){
+      intake.armDown(); 
+  }
+    else if (BPressed){
+      intake.armUp();
+    }
+    else{
+      intake.stopArm();
+    }
+
+
+
+    boolean ltPressed= gamepad.getRawButton(Constant.LeftTrigger);
+    boolean rtPressed = gamepad.getRawButton(Constant.RightTrigger);
     
+
+    if (ltPressed){
+      intake.rollerIn(); 
+  }
+    else if (rtPressed){
+      intake.rollerOut();
+    }
+    else{
+      intake.stopRoller();
+    }
+
   }
 
 
