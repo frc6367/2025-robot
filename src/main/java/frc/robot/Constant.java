@@ -9,14 +9,14 @@ public class Constant {
     public static final int LEFT_AXIS_X = 2;
     public static final int RIGHT_AXIS_X = 0;
     public static final int JOYSTICK = 0;
-    public static final int button_X = 0;
-    public static final int button_A = 1;
-    public static final int button_B = 2;
-    public static final int button_Y = 3;
-    public static final int LeftBumper = 4;
-    public static final int RightBumper= 5;
-    public static final int LeftTrigger= 6;
-    public static final int RightTrigger = 7;
+    public static final int button_X = 1;
+    public static final int button_A = 2;
+    public static final int button_B = 3;
+    public static final int button_Y = 4;
+    public static final int LeftBumper = 5;
+    public static final int RightBumper= 6;
+    public static final int LeftTrigger= 7;
+    public static final int RightTrigger = 8;
 
     // elevator constants
     public static final int kMotorPort = 0;

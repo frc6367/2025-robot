@@ -129,7 +129,7 @@ public class Robot extends TimedRobot {
 
     if (APressed){
       intake.armDown(); 
-  }
+    }
     else if (BPressed){
       intake.armUp();
     }

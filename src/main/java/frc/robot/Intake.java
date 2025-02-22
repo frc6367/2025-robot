@@ -13,8 +13,8 @@ public class Intake {
     SparkMax roller;
 
     public Intake(){
-        this.arm= new SparkMax(5,MotorType.kBrushless); 
-        this.roller= new SparkMax(6,MotorType.kBrushless); 
+        this.arm= new SparkMax(8,MotorType.kBrushless); 
+        this.roller= new SparkMax(7,MotorType.kBrushless); 
     }
 
     public double getArmEconder() {
@@ -26,23 +26,25 @@ public class Intake {
     }
 
     public void armUp(){
-        arm.set(0.5);
+        arm.set(-0.25);
     }
 
     public void armDown(){
-        arm.set(-0.5);
+        arm.set(0.25);
     }
 
     public void rollerOut(){
-        arm.set(0.5);
+        roller.set(0.5);
     }
 
     public void rollerIn(){
-        arm.set(-0.5);
+        roller.set(-0.5);
     }
     
     public void stopArm(){
         this.arm.set(0);
+        this.arm.stopMotor();
+
     }
 
     public void stopRoller(){

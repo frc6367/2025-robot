@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CoralEffector {
     
-    private VictorSPX leadingMotor = new VictorSPX(0);
-    private VictorSPX laggingMotor = new VictorSPX(0); 
+    private VictorSPX leadingMotor = new VictorSPX(5);
+    private VictorSPX laggingMotor = new VictorSPX(6); 
     public AnalogInput coralSensor = new AnalogInput(0);
     private boolean sawCoral = false; 
 
