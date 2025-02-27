@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    elevator.updateTelemetry();
+  
 
     coralEffector.putReadings();
     intake.putReadings();
@@ -57,7 +57,7 @@ public class Robot extends TimedRobot {
   @Override
   public void simulationPeriodic() {
     // Update the simulation model.
-    elevator.simulationPeriodic();
+  
   }
 
   /**
@@ -102,14 +102,17 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Max Speed", maxSpeed);
     dt.setMotors(fl, bl, fr, br);
 
-    // for the elevator
-    if (gamepad.getTrigger()) {
-      // Here, we set the constant setpoint of 0.75 meters.
-      elevator.reachGoal(Constant.kSetpointMeters);
-    } else {
-      // Otherwise, we update the setpoint to 0.
-      elevator.reachGoal(0.0);
-    }
+
+    // // for the elevator
+    // if (gamepad.getTrigger()) {
+    //   // Here, we set the constant setpoint of 0.75 meters.
+    //   elevator.reachGoal(Constant.kSetpointMeters);
+    // } else {
+    //   // Otherwise, we update the setpoint to 0.
+    //   elevator.reachGoal(0.0);
+    // }
+
+
 
     //doing the x-button 
     boolean XPressed = gamepad.getRawButton(Constant.button_X);
@@ -153,19 +156,35 @@ public class Robot extends TimedRobot {
       intake.stopRoller();
     }
 
+    boolean rightPressed = gamepad.getRawButton(Constant.RightBumper);
+    boolean leftPressed = gamepad.getRawButton(Constant.LeftBumper);
+   
+    if(rightPressed){
+      elevator.elevatorDown();
+    }
+    if(leftPressed){
+      elevator.elevatorUp();
+    }
+    else{
+      elevator.stopElevator();
+    }
+
   }
 
 
-  @Override
-  public void disabledInit() {
-    // This just makes sure that our simulation code knows that the motor's off.
-    elevator.stop();
-  }
 
-  @Override
-  public void close() {
-    elevator.close();
-    // super.close();
-  }
+  
+
+
+  // @Override
+  // public void disabledInit() {
+  //   // This just makes sure that our simulation code knows that the motor's off.
+  
+  // }
+
+  // @Override
+  // public void close() {
+  
+  // }
 
 }

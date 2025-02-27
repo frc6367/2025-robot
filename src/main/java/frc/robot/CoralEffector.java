@@ -45,10 +45,10 @@ public class CoralEffector {
 
     public void takeIn(){
         if ((!sawCoral && this.isStable())){
-            this.intake(); 
+            this.setMotors(0.4); 
         }
         else if(isIncoming()){
-            this.intake(); 
+            this.setMotors(0.4); 
             sawCoral = true; 
         }
         else{
