@@ -44,6 +44,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("effectorRightSpeed", Constant.effectorRightSpeed);
     SmartDashboard.putNumber("effectorLeftLowSpeed", Constant.effectorLeftLowSpeed);
     SmartDashboard.putNumber("effectorRightLowSpeed", Constant.effectorRightLowSpeed);
+    // intake.zeroEncoder();
   }
 
   /**
@@ -59,6 +60,7 @@ public class Robot extends TimedRobot {
 
     coralEffector.putReadings();
     intake.putReadings();
+    elevator.putReadings();
 
   }
 
@@ -148,17 +150,12 @@ public class Robot extends TimedRobot {
     boolean XPressed = gamepad.getRawButton(Constant.button_X);
     boolean YPressed = gamepad.getRawButton(Constant.button_Y);
     boolean ltPressed= gamepad.getRawButton(Constant.LeftTrigger);
-    boolean rtPressed = gamepad.getRawButton(Constant.RightTrigger);
 
     if (XPressed){
       coralEffector.takeIn();
     } else if (YPressed) {
       if (ltPressed){
         coralEffector.shootAngleL();
-
-      }
-      else if (rtPressed) {
-        coralEffector.shootAngleR();
 
       }
       else{
@@ -171,22 +168,29 @@ public class Robot extends TimedRobot {
     }
 
 
-
+    boolean rtPressed = gamepad.getRawButton(Constant.RightTrigger);
     boolean APressed = gamepad.getRawButton(Constant.button_A);
     boolean BPressed = gamepad.getRawButton(Constant.button_B);
     if (APressed){
-      intake.armDown(); 
+      intake.getBallIn();
+      // intake.armDown();
     }
     else if (BPressed){
       intake.armUp();
+      intake.stopRoller();
+    }
+    else if (rtPressed) {
+      intake.rollerOut();
     }
     else{
+      intake.stopRoller();
       intake.stopArm();
     }
 
 
 
-    
+  //   boolean ltPressed= gamepad.getRawButton(Constant.LeftTrigger);
+  //   boolean rtPressed = gamepad.getRawButton(Constant.RightTrigger);
     
 
   //   if (ltPressed){
@@ -199,13 +203,12 @@ public class Robot extends TimedRobot {
   //     intake.stopRoller();
   //   }
 
-    boolean rightPressed = gamepad.getRawButton(Constant.RightBumper);
-    boolean leftPressed = gamepad.getRawButton(Constant.LeftBumper);
-   
-    if(rightPressed){
+    double leftStick = gamepad.getRawAxis(Constant.LEFT_AXIS_X);
+
+    if(leftStick>0.2){
       elevator.elevatorDown();
     }
-    if(leftPressed){
+    else if(leftStick<-0.2){
       elevator.elevatorUp();
     }
     else{
