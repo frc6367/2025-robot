@@ -40,6 +40,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     SmartDashboard.putNumber("xStrafeMultiplier", 1.0);
     SmartDashboard.putNumber("yStrafeMultiplier", 1.0);
+    intake.zeroEncoder();
   }
 
   /**
@@ -55,6 +56,7 @@ public class Robot extends TimedRobot {
 
     coralEffector.putReadings();
     intake.putReadings();
+    elevator.putReadings();
 
   }
 
@@ -150,34 +152,40 @@ public class Robot extends TimedRobot {
     }
 
 
-
+    boolean rtPressed = gamepad.getRawButton(Constant.RightTrigger);
     boolean APressed = gamepad.getRawButton(Constant.button_A);
     boolean BPressed = gamepad.getRawButton(Constant.button_B);
     if (APressed){
-      intake.armDown(); 
+      intake.getBallIn();
+      // intake.armDown();
     }
     else if (BPressed){
       intake.armUp();
+      intake.stopRoller();
+    }
+    else if (rtPressed) {
+      intake.rollerOut();
     }
     else{
+      intake.stopRoller();
       intake.stopArm();
     }
 
 
 
-    boolean ltPressed= gamepad.getRawButton(Constant.LeftTrigger);
-    boolean rtPressed = gamepad.getRawButton(Constant.RightTrigger);
+  //   boolean ltPressed= gamepad.getRawButton(Constant.LeftTrigger);
+  //   boolean rtPressed = gamepad.getRawButton(Constant.RightTrigger);
     
 
-    if (ltPressed){
-      intake.rollerIn(); 
-  }
-    else if (rtPressed){
-      intake.rollerOut();
-    }
-    else{
-      intake.stopRoller();
-    }
+  //   if (ltPressed){
+  //     intake.rollerIn(); 
+  // }
+  //   else if (rtPressed){
+  //     intake.rollerOut();
+  //   }
+  //   else{
+  //     intake.stopRoller();
+  //   }
 
     boolean rightPressed = gamepad.getRawButton(Constant.RightBumper);
     boolean leftPressed = gamepad.getRawButton(Constant.LeftBumper);

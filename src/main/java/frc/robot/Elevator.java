@@ -1,7 +1,10 @@
 package frc.robot;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
@@ -11,16 +14,27 @@ import com.revrobotics.spark.SparkMax;
 
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 
 public class Elevator {
   SparkMax elevator;
-
+  RelativeEncoder elevatorEncoder;
 
     public Elevator(){
-        this.elevator= new SparkMax(9,MotorType.kBrushless);     
+      this.elevator= new SparkMax(9,MotorType.kBrushless);
+
+      SparkMaxConfig config = new SparkMaxConfig();
+      config.idleMode(IdleMode.kBrake);
+      this.elevator.configure(config, SparkMax.ResetMode.kResetSafeParameters, SparkMax.PersistMode.kPersistParameters); 
+ 
     }
+
+  public void putReadings(){
+    SmartDashboard.putNumber("elevatorEncoder", this.elevator.getAbsoluteEncoder().getPosition());
+  }
 
     public void elevatorDown(){
       elevator.set(0.6);
