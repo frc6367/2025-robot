@@ -47,10 +47,10 @@ public class CoralEffector {
         if ((!sawCoral && this.isStable())){
             this.setMotors(0.4); 
         }
-        else if(isIncoming()){
-            this.setMotors(0.4); 
-            sawCoral = true; 
-        }
+        // else if(isIncoming()){
+        //     this.setMotors(0.4); 
+        //     sawCoral = true; 
+        // }
         else{
             this.stop();
         }

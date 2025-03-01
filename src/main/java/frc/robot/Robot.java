@@ -6,6 +6,8 @@ package frc.robot;
 
 import org.opencv.ml.RTrees;
 
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+
 // import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -23,7 +25,8 @@ public class Robot extends TimedRobot {
   
   //make instances of each of the subsystems 
   private DriveTrain dt=new DriveTrain();
-  private Joystick gamepad=new Joystick(Constant.JOYSTICK); 
+  private Joystick gamepad=new Joystick(Constant.GamePad_Port); 
+  private Joystick moveJoystick = new Joystick(Constant.Joystick_Port);
   private final Elevator elevator = new Elevator();
   public static CoralEffector coralEffector = new CoralEffector(); 
   public static Intake intake = new Intake();
@@ -35,7 +38,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-  
+    SmartDashboard.putNumber("xStrafeMultiplier", 1.0);
+    SmartDashboard.putNumber("yStrafeMultiplier", 1.0);
   }
 
   /**
@@ -90,18 +94,36 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    double vertical = gamepad.getRawAxis(Constant.LEFT_AXIS_Y)*-1;
-    double spin = gamepad.getRawAxis(Constant.LEFT_AXIS_X);
-    double horizontal = gamepad.getRawAxis(Constant.RIGHT_AXIS_X);
+
+    double xStrafeMultiplier = SmartDashboard.getNumber("xStrafeMultiplier", 1.0);
+    double yStrafeMultiplier = SmartDashboard.getNumber("yStrafeMultiplier", 1.0);
+
+    boolean moveTrigger = moveJoystick.getRawButton(1);
+
+    double vertical = moveJoystick.getRawAxis(Constant.LEFT_AXIS_Y)*-1 * yStrafeMultiplier;
+    double spin = moveJoystick.getRawAxis(Constant.LEFT_AXIS_X);
+    if (spin < 0.3 && spin > -0.3) {
+      spin = 0.0;
+    }
+    double horizontal = moveJoystick.getRawAxis(Constant.RIGHT_AXIS_X)  * xStrafeMultiplier;
     double maxSpeed = 0.8;
     double max = Math.max(Math.abs(vertical) + Math.abs(horizontal) + Math.abs(spin), 1);
     double fl = (vertical + horizontal + spin)/max;
     double bl = (vertical - horizontal + spin)/max;
     double fr = (vertical - horizontal - spin)/max;
     double br = (vertical + horizontal - spin)/max;
-    SmartDashboard.putNumber("Max Speed", maxSpeed);
-    dt.setMotors(fl, bl, fr, br);
 
+    SmartDashboard.putNumber("Max Speed", maxSpeed);
+    if (moveTrigger) {
+      fl = fl/2;
+      bl = bl/2;
+      fr = fr/2;
+      br = br/2;
+    }
+    SmartDashboard.putNumber("blOutput", bl);
+
+    dt.setMotors(fl, bl, fr, br);
+  
 
     // // for the elevator
     // if (gamepad.getTrigger()) {
@@ -126,10 +148,10 @@ public class Robot extends TimedRobot {
       coralEffector.stop();
     }
 
+
+
     boolean APressed = gamepad.getRawButton(Constant.button_A);
     boolean BPressed = gamepad.getRawButton(Constant.button_B);
-
-
     if (APressed){
       intake.armDown(); 
     }
