@@ -16,12 +16,12 @@ public class CoralEffector {
     // make instance varible for the sensor that will be used 
     
 
-    public boolean isIncoming(){
-        return (coralSensor.getValue() < Constant.coralThreshold );  
+    public boolean canSeeCoral(){
+        return (coralSensor.getValue() > Constant.coralThreshold );  
     }
 
-    public boolean isStable(){
-        return !this.isIncoming();
+    public boolean cannotSeeCoral(){
+        return !this.canSeeCoral();
     }
 
 
@@ -44,10 +44,10 @@ public class CoralEffector {
     }
 
     public void takeIn(){
-        if ((!sawCoral && this.isStable())){
+        if ((!sawCoral && this.cannotSeeCoral())){
             this.intake(); 
         }
-        else if(isIncoming()){
+        else if(canSeeCoral()){
             this.intake(); 
             sawCoral = true; 
         }
@@ -56,12 +56,16 @@ public class CoralEffector {
         }
     }
 
-    public void shootAngle(double speed){
-        this.setMotors(0.6,0.8);
+    public void shootAngleL( ){
+        this.setMotors(Constant.effectorRightLowSpeed,Constant.effectorLeftSpeed);
+        // run at differnt speeds 
+    }
+    public void shootAngleR(){
+        this.setMotors(Constant.effectorRightSpeed,Constant.effectorLeftLowSpeed);
         // run at differnt speeds 
     }
 
-    public void shootStraight(double speed){
+    public void shootStraight(){
         // run at the same speed 
         this.sawCoral = false;
         this.setMotors(0.86);    

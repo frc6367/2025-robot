@@ -40,6 +40,10 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     SmartDashboard.putNumber("xStrafeMultiplier", 1.0);
     SmartDashboard.putNumber("yStrafeMultiplier", 1.0);
+    SmartDashboard.putNumber("effectorLeftSpeed", Constant.effectorLeftSpeed);
+    SmartDashboard.putNumber("effectorRightSpeed", Constant.effectorRightSpeed);
+    SmartDashboard.putNumber("effectorLeftLowSpeed", Constant.effectorLeftLowSpeed);
+    SmartDashboard.putNumber("effectorRightLowSpeed", Constant.effectorRightLowSpeed);
   }
 
   /**
@@ -97,6 +101,10 @@ public class Robot extends TimedRobot {
 
     double xStrafeMultiplier = SmartDashboard.getNumber("xStrafeMultiplier", 1.0);
     double yStrafeMultiplier = SmartDashboard.getNumber("yStrafeMultiplier", 1.0);
+    Constant.effectorLeftSpeed=SmartDashboard.getNumber("effectorLeftSpeed", 1.0);
+    Constant.effectorRightSpeed=SmartDashboard.getNumber("effectorRightSpeed", 1.0);
+    Constant.effectorLeftLowSpeed=SmartDashboard.getNumber("effectorLeftLowSpeed", 1.0);
+    Constant.effectorRightLowSpeed=SmartDashboard.getNumber("effectorRightLowSpeed", 1.0);
 
     boolean moveTrigger = moveJoystick.getRawButton(1);
 
@@ -139,10 +147,23 @@ public class Robot extends TimedRobot {
     //doing the x-button 
     boolean XPressed = gamepad.getRawButton(Constant.button_X);
     boolean YPressed = gamepad.getRawButton(Constant.button_Y);
+    boolean ltPressed= gamepad.getRawButton(Constant.LeftTrigger);
+    boolean rtPressed = gamepad.getRawButton(Constant.RightTrigger);
+
     if (XPressed){
       coralEffector.takeIn();
     } else if (YPressed) {
-      coralEffector.shootStraight(0.0);
+      if (ltPressed){
+        coralEffector.shootAngleL();
+
+      }
+      else if (rtPressed) {
+        coralEffector.shootAngleR();
+
+      }
+      else{
+        coralEffector.shootStraight();
+      }
     }
     else {
       coralEffector.resetSawCoral();
@@ -165,19 +186,18 @@ public class Robot extends TimedRobot {
 
 
 
-    boolean ltPressed= gamepad.getRawButton(Constant.LeftTrigger);
-    boolean rtPressed = gamepad.getRawButton(Constant.RightTrigger);
+    
     
 
-    if (ltPressed){
-      intake.rollerIn(); 
-  }
-    else if (rtPressed){
-      intake.rollerOut();
-    }
-    else{
-      intake.stopRoller();
-    }
+  //   if (ltPressed){
+  //     intake.rollerIn(); 
+  // }
+  //   else if (rtPressed){
+  //     intake.rollerOut();
+  //   }
+  //   else{
+  //     intake.stopRoller();
+  //   }
 
     boolean rightPressed = gamepad.getRawButton(Constant.RightBumper);
     boolean leftPressed = gamepad.getRawButton(Constant.LeftBumper);
