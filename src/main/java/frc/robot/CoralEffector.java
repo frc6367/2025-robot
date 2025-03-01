@@ -37,7 +37,7 @@ public class CoralEffector {
 
 
     public void intake(){
-        this.setMotors(0.75);
+        this.setMotors(0.4);
 
         // move at same speed
         // run to limit based on the senor 
@@ -45,12 +45,12 @@ public class CoralEffector {
 
     public void takeIn(){
         if ((!sawCoral && this.isStable())){
-            this.setMotors(0.4); 
+            this.intake(); 
         }
-        // else if(isIncoming()){
-        //     this.setMotors(0.4); 
-        //     sawCoral = true; 
-        // }
+        else if(isIncoming()){
+            this.intake(); 
+            sawCoral = true; 
+        }
         else{
             this.stop();
         }
@@ -69,6 +69,10 @@ public class CoralEffector {
 
     public void stop(){
         this.setMotors(0.0);
+    }
+
+    public void resetSawCoral() {
+        this.sawCoral = false;
     }
 
     public void putReadings(){

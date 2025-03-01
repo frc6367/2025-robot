@@ -145,6 +145,7 @@ public class Robot extends TimedRobot {
       coralEffector.shootStraight(0.0);
     }
     else {
+      coralEffector.resetSawCoral();
       coralEffector.stop();
     }
 
