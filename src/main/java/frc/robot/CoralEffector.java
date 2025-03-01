@@ -48,7 +48,7 @@ public class CoralEffector {
             this.intake(); 
         }
         else if(canSeeCoral()){
-            this.intake(); 
+            this.setMotors(0.25); 
             sawCoral = true; 
         }
         else{

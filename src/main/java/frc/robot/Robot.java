@@ -172,18 +172,18 @@ public class Robot extends TimedRobot {
     boolean APressed = gamepad.getRawButton(Constant.button_A);
     boolean BPressed = gamepad.getRawButton(Constant.button_B);
     if (APressed){
-      intake.getBallIn();
-      // intake.armDown();
+      // intake.getBallIn();
+      intake.armDown();
     }
     else if (BPressed){
       intake.armUp();
       intake.stopRoller();
     }
-    else if (rtPressed) {
-      intake.rollerOut();
-    }
+    // else if (rtPressed) {
+    //   intake.rollerOut();
+    // }
     else{
-      intake.stopRoller();
+      // intake.stopRoller();
       intake.stopArm();
     }
 
@@ -191,19 +191,19 @@ public class Robot extends TimedRobot {
 
   //   boolean ltPressed= gamepad.getRawButton(Constant.LeftTrigger);
   //   boolean rtPressed = gamepad.getRawButton(Constant.RightTrigger);
-    
+    boolean rbPressed = gamepad.getRawButton(Constant.RightBumper);
 
-  //   if (ltPressed){
-  //     intake.rollerIn(); 
-  // }
-  //   else if (rtPressed){
-  //     intake.rollerOut();
-  //   }
-  //   else{
-  //     intake.stopRoller();
-  //   }
+    if (rbPressed){
+      intake.rollerIn(); 
+  }
+    else if (rtPressed){
+      intake.rollerOut();
+    }
+    else{
+      intake.stopRoller();
+    }
 
-    double leftStick = gamepad.getRawAxis(Constant.LEFT_AXIS_X);
+    double leftStick = gamepad.getRawAxis(1);
 
     if(leftStick>0.2){
       elevator.elevatorDown();

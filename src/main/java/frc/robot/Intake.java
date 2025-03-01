@@ -28,6 +28,7 @@ public class Intake {
 
         // config.apply(new AlternateEncoderConfig().inverted(true).countsPerRevolution(1250));
         this.arm.configure(config, SparkMax.ResetMode.kResetSafeParameters, SparkMax.PersistMode.kPersistParameters);
+        this.roller.configure(new SparkMaxConfig().apply(config),  SparkMax.ResetMode.kResetSafeParameters, SparkMax.PersistMode.kPersistParameters);
 
         this.armEncoder = this.arm.getEncoder();
     }
@@ -49,7 +50,7 @@ public class Intake {
     }
 
     public void rollerOut(){
-        roller.set(0.5);
+        roller.set(0.9);
     }
 
     public void rollerIn(){

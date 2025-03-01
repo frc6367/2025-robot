@@ -55,10 +55,10 @@ public class Constant {
 
     // coral sensor constants
     public static int coralThreshold = 1000; 
-    public static double effectorLeftSpeed = 1.0;
-    public static double effectorRightSpeed = 1.0;
-    public static double effectorLeftLowSpeed = 1.0;
-    public static double effectorRightLowSpeed = 1.0;
+    public static double effectorLeftSpeed = 0.8;
+    public static double effectorRightSpeed = 0.8;
+    public static double effectorLeftLowSpeed = 0.4;
+    public static double effectorRightLowSpeed = 0.3;
 
     
 

@@ -30,10 +30,11 @@ public class Elevator {
       config.idleMode(IdleMode.kBrake);
       this.elevator.configure(config, SparkMax.ResetMode.kResetSafeParameters, SparkMax.PersistMode.kPersistParameters); 
  
+      this.elevatorEncoder=this.elevator.getEncoder();
     }
 
   public void putReadings(){
-    SmartDashboard.putNumber("elevatorEncoder", this.elevator.getAbsoluteEncoder().getPosition());
+    SmartDashboard.putNumber("elevatorEncoder", this.elevatorEncoder.getPosition());
   }
 
     public void elevatorDown(){
@@ -41,7 +42,15 @@ public class Elevator {
   }
 
   public void elevatorUp(){
+    if(this.elevatorEncoder.getPosition()>-210){
       elevator.set(-0.6);
+    }
+    else{
+      stopElevator();
+    }
+
+      
+
   }
   
   public void stopElevator(){
