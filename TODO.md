@@ -1,6 +1,6 @@
 ### Elevator stages
 - The limit switch may be ready by the end of the day today. 
-`private DigitalInput elevatorLimit = new DigitalInput(/* ROBO_RIO_DIO PORT NUMBER */)`
+`private DigitalInput elevatorLimit = new DigitalInput(/* ROBO_RIO_DIO PORT NUMBER */)` // port is dgital zero 
 this field in the elevator will let us read the value. Review the javadoc for the class: `edu.wpi.first.wpilibj.DigitalInput` to find out how to read the boolean value output.
 Remember, we can almost always find javadocs by googling the full package path: `import edu.wpi.first.wpilibj.DigitalInput;`
 

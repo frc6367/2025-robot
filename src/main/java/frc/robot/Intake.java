@@ -50,11 +50,11 @@ public class Intake {
     }
 
     public void rollerOut(){
-        roller.set(0.9);
+        roller.set(1);
     }
 
     public void rollerIn(){
-        roller.set(-0.5);
+        roller.set(-0.6);
     }
     
     public void stopArm(){

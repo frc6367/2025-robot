@@ -61,6 +61,7 @@ public class Robot extends TimedRobot {
     coralEffector.putReadings();
     intake.putReadings();
     elevator.putReadings();
+    elevator.sensorReadings();
 
   }
 
