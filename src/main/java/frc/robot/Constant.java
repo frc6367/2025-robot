@@ -1,7 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.math.util.Units;
-
 public class Constant {
 
 
@@ -20,6 +18,10 @@ public class Constant {
 
     public static final int GamePad_Port = 0;
     public static final int Joystick_Port = 1;
+
+
+    public static final double Spin_Deadband = 0.5;
+    public static final double XY_Deadband = 0.25; 
 
 
 

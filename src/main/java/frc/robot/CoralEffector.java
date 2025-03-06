@@ -1,5 +1,6 @@
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
@@ -28,6 +29,9 @@ public class CoralEffector {
     public void setMotors(double speed1, double speed2){
         leadingMotor.set(VictorSPXControlMode.PercentOutput,speed1);
         laggingMotor.set(VictorSPXControlMode.PercentOutput,speed2);
+
+        this.leadingMotor.setNeutralMode(NeutralMode.Brake);
+        this.laggingMotor.setNeutralMode(NeutralMode.Brake);
 
     }
 

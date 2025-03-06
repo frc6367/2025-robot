@@ -1,5 +1,6 @@
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -16,6 +17,10 @@ public class DriveTrain{
         this.frontright=new TalonSRX(1);
         this.frontright.setInverted(true);
         this.backright.setInverted(true);
+        this.backleft.setNeutralMode(NeutralMode.Brake);
+        this.backright.setNeutralMode(NeutralMode.Brake);
+        this.frontleft.setNeutralMode(NeutralMode.Brake);
+        this.frontright.setNeutralMode(NeutralMode.Brake);
     }
     public void stop(){
         backleft.set(TalonSRXControlMode.PercentOutput, 0);
@@ -30,6 +35,9 @@ public class DriveTrain{
         backright.set(TalonSRXControlMode.PercentOutput, br);
         frontright.set(TalonSRXControlMode.PercentOutput, fr);
 
+    }
+    public void driveForward(double speed){
+        this.setMotors(speed,speed,speed,speed);
     }
 
     // helps the driver do more percise turns by slowing down when the robot is turning left

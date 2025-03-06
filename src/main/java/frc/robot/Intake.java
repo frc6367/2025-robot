@@ -54,7 +54,7 @@ public class Intake {
     }
 
     public void rollerIn(){
-        roller.set(-0.6);
+        roller.set(-1.0);
     }
     
     public void stopArm(){
@@ -71,7 +71,7 @@ public class Intake {
         double armPosition = this.getArmPosition();
         SmartDashboard.putNumber("XCommandArmPosition", armPosition);
         this.rollerIn();
-        if (armPosition<0.2){
+        if (armPosition < 11){
             this.armDown();
         }
         else {

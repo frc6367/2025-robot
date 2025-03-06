@@ -4,16 +4,12 @@
 
 package frc.robot;
 
-import org.opencv.ml.RTrees;
-
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 
 // import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -22,6 +18,16 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
+
+  //Autonomous definitions
+  private static final String kDefaultAuto = "Drive straight";
+  private static final String kCenterTroughAuto = "Center trough";
+  // private static final String kLeftTroughAuto = "Left trough";
+  // private static final String kLeftTroughAuto = "Left trough";
+
+  private String m_autoSelected;
+  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+
   
   //make instances of each of the subsystems 
   private DriveTrain dt=new DriveTrain();
@@ -30,7 +36,14 @@ public class Robot extends TimedRobot {
   private final Elevator elevator = new Elevator();
   public static CoralEffector coralEffector = new CoralEffector(); 
   public static Intake intake = new Intake();
+  public Autonomous autonomous = new Autonomous(dt,coralEffector);
   // public AnalogInput coralSensor = new AnalogInput(0);
+
+  public Robot() {
+    m_chooser.setDefaultOption("Drive straight", kDefaultAuto);
+    m_chooser.addOption("Center trough", kCenterTroughAuto);
+    SmartDashboard.putData("Autonomous to run", m_chooser);
+  }
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -57,7 +70,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
   
-
+    SmartDashboard.putNumber("gamepadPOV", gamepad.getPOV());
     coralEffector.putReadings();
     intake.putReadings();
     elevator.putReadings();
@@ -83,13 +96,25 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    
+    m_autoSelected = m_chooser.getSelected();
+    autonomous.resetTime();
+
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-   
+    switch (m_autoSelected) {
+      case kCenterTroughAuto:
+        this.autonomous.centerTroughAuto();
+        break;
+      case kDefaultAuto:
+        this.autonomous.driveStraightAuto();
+      default:
+        // Put default auto code here
+        break;
+    }
+
 
 
   }
@@ -112,11 +137,16 @@ public class Robot extends TimedRobot {
     boolean moveTrigger = moveJoystick.getRawButton(1);
 
     double vertical = moveJoystick.getRawAxis(Constant.LEFT_AXIS_Y)*-1 * yStrafeMultiplier;
+    double horizontal = moveJoystick.getRawAxis(Constant.RIGHT_AXIS_X)  * xStrafeMultiplier;
+    
+    // TODO: Deadband horizontal and vertical
+    
     double spin = moveJoystick.getRawAxis(Constant.LEFT_AXIS_X);
-    if (spin < 0.3 && spin > -0.3) {
+    if (spin < 0.5 && spin > -0.5) {
       spin = 0.0;
     }
-    double horizontal = moveJoystick.getRawAxis(Constant.RIGHT_AXIS_X)  * xStrafeMultiplier;
+    spin = spin*0.75;
+
     double maxSpeed = 0.8;
     double max = Math.max(Math.abs(vertical) + Math.abs(horizontal) + Math.abs(spin), 1);
     double fl = (vertical + horizontal + spin)/max;
@@ -173,18 +203,18 @@ public class Robot extends TimedRobot {
     boolean APressed = gamepad.getRawButton(Constant.button_A);
     boolean BPressed = gamepad.getRawButton(Constant.button_B);
     if (APressed){
-      // intake.getBallIn();
-      intake.armDown();
+      intake.getBallIn();
+      // intake.armDown();
     }
     else if (BPressed){
       intake.armUp();
       intake.stopRoller();
     }
-    // else if (rtPressed) {
-    //   intake.rollerOut();
-    // }
+    else if (rtPressed) {
+      intake.rollerOut();
+    }
     else{
-      // intake.stopRoller();
+      intake.stopRoller();
       intake.stopArm();
     }
 
@@ -194,15 +224,15 @@ public class Robot extends TimedRobot {
   //   boolean rtPressed = gamepad.getRawButton(Constant.RightTrigger);
     boolean rbPressed = gamepad.getRawButton(Constant.RightBumper);
 
-    if (rbPressed){
-      intake.rollerIn(); 
-  }
-    else if (rtPressed){
-      intake.rollerOut();
-    }
-    else{
-      intake.stopRoller();
-    }
+  //   if (rbPressed){
+  //     intake.rollerIn(); 
+  //  }
+  //   else if (rtPressed){
+  //     intake.rollerOut();
+  //   }
+  //   else{
+  //     intake.stopRoller();
+  //   }
 
     double leftStick = gamepad.getRawAxis(1);
 
