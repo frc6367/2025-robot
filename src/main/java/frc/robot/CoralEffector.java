@@ -61,7 +61,7 @@ public class CoralEffector {
     }
 
     public void shootAngleL( ){
-        this.setMotors(Constant.effectorRightSpeed,Constant.effectorLeftLowSpeed);
+        this.setMotors(Constant.effectorRightSpeed,0.3);
         // run at differnt speeds 
     }
     public void shootAngleR(){
