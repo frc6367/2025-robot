@@ -40,14 +40,26 @@ public class Autonomous {
 		incrementTime(); 
 
 		if (autoState== 0){
-			this.dt.driveForward(0.6);
-				if (this.time >= 1000){
+			this.dt.driveForward(0.4);
+				if (this.time >= 1400){
 					autoState++;
 					timeInState = 0; 
+					this.dt.setcoast(); 
 					this.dt.stop();
+				
 				}
 			}
-		else if(autoState == 1){
+
+		else if(autoState== 1){
+			if (timeInState > 1500){
+				autoState++;
+				timeInState = 0; 
+
+			}
+
+		}
+		
+		else if(autoState == 2){
 			this.ce.shootAngleL();
 			if (this.timeInState >= 1000){
 				autoState++;

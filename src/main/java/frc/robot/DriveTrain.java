@@ -29,6 +29,20 @@ public class DriveTrain{
         frontright.set(TalonSRXControlMode.PercentOutput, 0);
     }
 
+    public void setBrake(){
+        this.backleft.setNeutralMode(NeutralMode.Brake);
+        this.backright.setNeutralMode(NeutralMode.Brake);
+        this.frontleft.setNeutralMode(NeutralMode.Brake);
+        this.frontright.setNeutralMode(NeutralMode.Brake);
+    }
+
+    public void setcoast(){
+        this.backleft.setNeutralMode(NeutralMode.Coast);
+        this.backright.setNeutralMode(NeutralMode.Coast);
+        this.frontleft.setNeutralMode(NeutralMode.Coast);
+        this.frontright.setNeutralMode(NeutralMode.Coast);
+    }
+
     public void setMotors(double fl, double bl, double fr, double br){
         backleft.set(TalonSRXControlMode.PercentOutput, bl);
         frontleft.set(TalonSRXControlMode.PercentOutput, fl);

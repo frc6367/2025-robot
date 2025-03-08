@@ -39,7 +39,7 @@ public class Robot extends TimedRobot {
   public static CoralEffector coralEffector = new CoralEffector(); 
   public static Intake intake = new Intake();
   public Autonomous autonomous = new Autonomous(dt,coralEffector);
-  public PoseEstimator pe = new PoseEstimator<>(, null, null, null)
+  // public PoseEstimator pe = new PoseEstimator<>(, null, null, null);
   // public AnalogInput coralSensor = new AnalogInput(0);
 
   public Robot() {
@@ -124,7 +124,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called once when teleop is enabled. */
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+    this.dt.setBrake();
+  }
 
   /** This function is called periodically during operator control. */
   @Override
