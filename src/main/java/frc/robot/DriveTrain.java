@@ -54,6 +54,13 @@ public class DriveTrain{
         this.setMotors(speed,speed,speed,speed);
     }
 
+    public void strafeRight(double speed){
+        backleft.set(TalonSRXControlMode.PercentOutput, -speed);
+        frontleft.set(TalonSRXControlMode.PercentOutput, speed);
+        backright.set(TalonSRXControlMode.PercentOutput, speed);
+        frontright.set(TalonSRXControlMode.PercentOutput, -speed);
+    }
+
     // helps the driver do more percise turns by slowing down when the robot is turning left
     // if (driverController.getBumper(Hand.kleft)) turnPower *= 0.5; - when using arcade drive 
 

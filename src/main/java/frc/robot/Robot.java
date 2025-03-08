@@ -26,6 +26,7 @@ public class Robot extends TimedRobot {
   //Autonomous definitions
   private static final String kDefaultAuto = "Drive straight";
   private static final String kCenterTroughAuto = "Center trough";
+  private static final String kCenterL3Auto = "Center L3 Auto";
   // private static final String kLeftTroughAuto = "Left trough";
   // private static final String kLeftTroughAuto = "Left trough";
 
@@ -40,7 +41,7 @@ public class Robot extends TimedRobot {
   private final Elevator elevator = new Elevator();
   public static CoralEffector coralEffector = new CoralEffector(); 
   public static Intake intake = new Intake();
-  public Autonomous autonomous = new Autonomous(dt,coralEffector);
+  public Autonomous autonomous = new Autonomous(dt,coralEffector,elevator);
   // public PoseEstimator pe = new PoseEstimator<>(, null, null, null);
   // public AnalogInput coralSensor = new AnalogInput(0);
   // public CameraServer camera = new 
@@ -48,6 +49,7 @@ public class Robot extends TimedRobot {
   public Robot() {
     m_chooser.setDefaultOption("Drive straight", kDefaultAuto);
     m_chooser.addOption("Center trough", kCenterTroughAuto);
+    m_chooser.addOption("Center l3 Auto", kCenterL3Auto);
     SmartDashboard.putData("Autonomous to run", m_chooser);
     // CameraServer.startAutomaticCapture();
   }
@@ -77,7 +79,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
   
-    SmartDashboard.putNumber("gamepadPOV", gamepad.getPOV());
+    // SmartDashboard.putNumber("gamepadPOV", gamepad.getPOV());
     coralEffector.putReadings();
     intake.putReadings();
     elevator.putReadings();
@@ -117,6 +119,10 @@ public class Robot extends TimedRobot {
         break;
       case kDefaultAuto:
         this.autonomous.driveStraightAuto();
+        break;
+      case kCenterL3Auto:
+        this.autonomous.centerL3Auto();
+        break;
       default:
         // Put default auto code here
         break;
