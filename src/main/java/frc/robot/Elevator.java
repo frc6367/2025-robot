@@ -46,7 +46,7 @@ public class Elevator {
   }
 
     public void elevatorDown(){
-      elevator.set(0.6);
+      elevator.set(0.7);
       if(!elevatorLimit.get()){
           stopElevator();
       }
@@ -54,8 +54,8 @@ public class Elevator {
   }
 
   public void elevatorUp(){
-    if(this.elevatorEncoder.getPosition()>-210){
-      elevator.set(-0.6);
+    if(this.elevatorEncoder.getPosition()>-215){
+      elevator.set(-0.7);
     }
     else{
       stopElevator();

@@ -72,7 +72,7 @@ public class Intake {
         double armPosition = this.getArmPosition();
         SmartDashboard.putNumber("XCommandArmPosition", armPosition);
         this.rollerIn();
-        if (armPosition < 11){
+        if (armPosition < 13){
             this.armDown();
         }
         else {

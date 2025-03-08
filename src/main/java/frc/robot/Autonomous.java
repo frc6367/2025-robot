@@ -51,9 +51,11 @@ public class Autonomous {
 			}
 
 		else if(autoState== 1){
-			if (timeInState > 1500){
+			this.dt.driveForward(0.2);
+			if (timeInState > 1200){
 				autoState++;
 				timeInState = 0; 
+				this.dt.stop();
 
 			}
 

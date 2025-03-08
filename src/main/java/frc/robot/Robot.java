@@ -5,6 +5,7 @@
 package frc.robot;
 
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.estimator.PoseEstimator;
 import edu.wpi.first.math.kinematics.Kinematics;
 // import edu.wpi.first.wpilibj.AnalogInput;
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -41,11 +43,13 @@ public class Robot extends TimedRobot {
   public Autonomous autonomous = new Autonomous(dt,coralEffector);
   // public PoseEstimator pe = new PoseEstimator<>(, null, null, null);
   // public AnalogInput coralSensor = new AnalogInput(0);
+  // public CameraServer camera = new 
 
   public Robot() {
     m_chooser.setDefaultOption("Drive straight", kDefaultAuto);
     m_chooser.addOption("Center trough", kCenterTroughAuto);
     SmartDashboard.putData("Autonomous to run", m_chooser);
+    // CameraServer.startAutomaticCapture();
   }
 
   /**
