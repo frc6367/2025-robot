@@ -1,7 +1,5 @@
+
 package frc.robot;
-
-
-
 public class Autonomous {
 	private final int TICK_MS = 20;
 

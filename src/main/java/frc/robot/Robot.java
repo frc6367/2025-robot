@@ -5,6 +5,8 @@
 package frc.robot;
 
 
+import edu.wpi.first.math.estimator.PoseEstimator;
+import edu.wpi.first.math.kinematics.Kinematics;
 // import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -37,6 +39,7 @@ public class Robot extends TimedRobot {
   public static CoralEffector coralEffector = new CoralEffector(); 
   public static Intake intake = new Intake();
   public Autonomous autonomous = new Autonomous(dt,coralEffector);
+  public PoseEstimator pe = new PoseEstimator<>(, null, null, null)
   // public AnalogInput coralSensor = new AnalogInput(0);
 
   public Robot() {

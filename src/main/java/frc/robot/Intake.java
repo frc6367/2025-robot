@@ -31,6 +31,7 @@ public class Intake {
         this.roller.configure(new SparkMaxConfig().apply(config),  SparkMax.ResetMode.kResetSafeParameters, SparkMax.PersistMode.kPersistParameters);
 
         this.armEncoder = this.arm.getEncoder();
+        this.armEncoder.setPosition(0.0);
     }
 
     public double getArmPosition() {
