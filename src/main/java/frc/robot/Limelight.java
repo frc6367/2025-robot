@@ -18,10 +18,7 @@
 
 //     NetworkTableInstance.getDefault().getTable("limelight").getEntry("<variablename>").setNumber(<value>);
 //         double[] cropValues = new double[4];
-//         cropValues[0] = -1.0;
-//         cropValues[1] = 1.0;
-//         cropValues[2] = -1.0;
-//         cropValues[3] = 1.0;
+        
 //     NetworkTableInstance.getDefault().getTable("limelight").getEntry("crop").setDoubleArray(cropValues);
 
 

@@ -88,11 +88,14 @@ public class CoralEffector {
     }
 
     public void takeAlge(){
-      noAlgeMotor.set(VictorSPXControlMode.PercentOutput,0.5);
+      noAlgeMotor.set(VictorSPXControlMode.PercentOutput,-0.5);
     }
+    public void removeAlge(){
+        noAlgeMotor.set(VictorSPXControlMode.PercentOutput,0.5);
+      }
 
     public void stopAlge(){
-        noAlgeMotor.set(VictorSPXControlMode.PercentOutput,0.5);
+        noAlgeMotor.set(VictorSPXControlMode.PercentOutput,0.0);
     }
 
 

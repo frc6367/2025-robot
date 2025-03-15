@@ -54,7 +54,7 @@ public class Elevator {
   }
 
   public boolean elevatorUp(){
-    if(this.elevatorEncoder.getPosition()>-215){
+    if(this.elevatorEncoder.getPosition()>-212){
       elevator.set(-1.0);
       return false; 
     }

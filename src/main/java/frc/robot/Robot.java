@@ -9,6 +9,7 @@ package frc.robot;
 // import edu.wpi.first.math.estimator.PoseEstimator;
 // import edu.wpi.first.math.kinematics.Kinematics;
 // import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -51,7 +52,7 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("Center trough", kCenterTroughAuto);
     m_chooser.addOption("Center l3 Auto", kCenterL3Auto);
     SmartDashboard.putData("Autonomous to run", m_chooser);
-    // CameraServer.startAutomaticCapture();
+    CameraServer.startAutomaticCapture();
   }
 
   /**
@@ -230,26 +231,21 @@ public class Robot extends TimedRobot {
     else if (rtPressed) {
       intake.rollerOut();
     }
-    else if(gamepad.getRawButton(Constant.RightBumper)){
-      intake.upperArm();
+    // else if(gamepad.getRawButton(Constant.RightBumper)){
+    //   intake.upperArm();
       
-    }
+    // }
     else{
       intake.stopRoller();
       intake.stopArm();
     }
 
-
-
-  //   boolean ltPressed= gamepad.getRawButton(Constant.LeftTrigger);
-  //   boolean rtPressed = gamepad.getRawButton(Constant.RightTrigger);
-    boolean rbPressed = gamepad.getRawButton(Constant.RightBumper);
-
-  //   if (rbPressed){
+  boolean startButton = gamepad.getRawButton(10);
+  //   if (startButton){
   //     intake.rollerIn(); 
   //  }
   //   else 
-    // if (rtPressed){
+    // if (startButton){
     //   intake.rollerOut();
     // }
     // else{
@@ -272,15 +268,19 @@ public class Robot extends TimedRobot {
     }
 
     boolean leftbutton = gamepad.getRawButton(Constant.LeftBumper);
+    boolean rbPressed = gamepad.getRawButton(Constant.RightBumper);
+
 
     if(leftbutton){
       coralEffector.takeAlge();      
     }
+    else if(rbPressed){
+      coralEffector.removeAlge();
+    }
     else{
-      coralEffector.stop(); 
+      coralEffector.stopAlge(); 
     }
 
-    
 
     
 
