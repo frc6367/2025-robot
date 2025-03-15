@@ -79,6 +79,18 @@ public class Intake {
             this.stopArm();
         }    
     }
+
+    public void upperArm(){
+        double armPosition = this.getArmPosition();
+        this.rollerIn();
+        if (armPosition < 5){
+            this.armDown();
+        }
+        else {
+            this.stopArm();
+        } 
+
+    }
     public void zeroEncoder(){
         // this.armEncoder.setPosition(0.0);
     }

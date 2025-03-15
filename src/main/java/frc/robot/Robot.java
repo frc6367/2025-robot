@@ -5,9 +5,9 @@
 package frc.robot;
 
 
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.math.estimator.PoseEstimator;
-import edu.wpi.first.math.kinematics.Kinematics;
+// import edu.wpi.first.cameraserver.CameraServer;
+// import edu.wpi.first.math.estimator.PoseEstimator;
+// import edu.wpi.first.math.kinematics.Kinematics;
 // import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -217,9 +217,11 @@ public class Robot extends TimedRobot {
     boolean rtPressed = gamepad.getRawButton(Constant.RightTrigger);
     boolean APressed = gamepad.getRawButton(Constant.button_A);
     boolean BPressed = gamepad.getRawButton(Constant.button_B);
+    
+
     if (APressed){
       intake.getBallIn();
-      // intake.armDown();
+
     }
     else if (BPressed){
       intake.armUp();
@@ -227,6 +229,10 @@ public class Robot extends TimedRobot {
     }
     else if (rtPressed) {
       intake.rollerOut();
+    }
+    else if(gamepad.getRawButton(Constant.RightBumper)){
+      intake.upperArm();
+      
     }
     else{
       intake.stopRoller();
@@ -242,12 +248,13 @@ public class Robot extends TimedRobot {
   //   if (rbPressed){
   //     intake.rollerIn(); 
   //  }
-  //   else if (rtPressed){
-  //     intake.rollerOut();
-  //   }
-  //   else{
-  //     intake.stopRoller();
-  //   }
+  //   else 
+    // if (rtPressed){
+    //   intake.rollerOut();
+    // }
+    // else{
+    //   intake.stopRoller();
+    // }
 
     double leftStick = gamepad.getRawAxis(1);
 
@@ -257,9 +264,25 @@ public class Robot extends TimedRobot {
     else if(leftStick<-0.2){
       elevator.elevatorUp();
     }
+    else if(gamepad.getPOV() == Constant.povForward){
+      elevator.gotoL2();
+    }
     else{
       elevator.stopElevator();
     }
+
+    boolean leftbutton = gamepad.getRawButton(Constant.LeftBumper);
+
+    if(leftbutton){
+      coralEffector.takeAlge();      
+    }
+    else{
+      coralEffector.stop(); 
+    }
+
+    
+
+    
 
   }
 

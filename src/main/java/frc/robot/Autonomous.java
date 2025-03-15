@@ -12,7 +12,7 @@ public class Autonomous {
 	private int autoState = 0; 
 
 
-	public Autonomous(DriveTrain dt,CoralEffector ce, Elevator el ) {
+	public Autonomous(DriveTrain dt, CoralEffector ce, Elevator el ) {
 		this.dt = dt;
 		this.ce = ce; 
 		this.el = el; 
@@ -71,6 +71,19 @@ public class Autonomous {
 				this.ce.stop();
 			}
 		}
+
+		else if(autoState== 3){
+			this.dt.driveForward(-0.2);
+			if (timeInState > 500){
+				autoState++;
+				timeInState = 0; 
+				this.dt.stop();
+
+			}
+
+		}
+
+
 	}
 
 	public void centerL3Auto(){

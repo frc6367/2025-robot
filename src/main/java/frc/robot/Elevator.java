@@ -46,7 +46,7 @@ public class Elevator {
   }
 
     public void elevatorDown(){
-      elevator.set(0.7);
+      elevator.set(1.0);
       if(!elevatorLimit.get()){
           stopElevator();
       }
@@ -55,7 +55,7 @@ public class Elevator {
 
   public boolean elevatorUp(){
     if(this.elevatorEncoder.getPosition()>-215){
-      elevator.set(-0.85);
+      elevator.set(-1.0);
       return false; 
     }
     else{
@@ -63,9 +63,19 @@ public class Elevator {
       return true; 
 
     }
+  }
 
-      
-
+  public void gotoL2(){
+    double position = elevatorEncoder.getPosition(); 
+    if(position > -80 ){
+      this.elevatorUp();
+    }
+    // else if(position < -83){
+    //   this.elevatorDown(); 
+    // }
+    else{
+      this.stopElevator(); 
+    }
   }
   
   public void stopElevator(){

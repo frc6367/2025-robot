@@ -11,12 +11,12 @@ public class CoralEffector {
     
     private VictorSPX leadingMotor = new VictorSPX(5);
     private VictorSPX laggingMotor = new VictorSPX(6); 
+    private VictorSPX noAlgeMotor = new VictorSPX(10); 
     public AnalogInput coralSensor = new AnalogInput(0);
     private boolean sawCoral = false; 
 
     // make instance varible for the sensor that will be used 
     
-
     public boolean canSeeCoral(){
         return (coralSensor.getValue() > Constant.coralThreshold );  
     }
@@ -85,6 +85,14 @@ public class CoralEffector {
 
     public void putReadings(){
         SmartDashboard.putNumber("coral sensor", coralSensor.getValue());
+    }
+
+    public void takeAlge(){
+      noAlgeMotor.set(VictorSPXControlMode.PercentOutput,0.5);
+    }
+
+    public void stopAlge(){
+        noAlgeMotor.set(VictorSPXControlMode.PercentOutput,0.5);
     }
 
 
