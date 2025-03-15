@@ -29,6 +29,7 @@ public class Autonomous {
 	}
 
 	public void driveStraightAuto() {
+
 		this.incrementTime();
 		if (this.time <= 850) {
 			this.dt.driveForward(0.6);
@@ -36,6 +37,16 @@ public class Autonomous {
 		else{
 			this.dt.stop();
 		}
+
+
+		// if(autoState == 0){
+		// 	// 	this.ce.takeAlge();
+		// 	// 	if (this.timeInState >=1000){
+		// 	// 		autoState++;
+		// 	// 		timeInState=0;
+		// 	// 		this.ce.stop(); 
+		// 	// 	}
+		// 	// }
 	}
 
 	public void centerTroughAuto(){
@@ -71,8 +82,16 @@ public class Autonomous {
 				this.ce.stop();
 			}
 		}
+		else if(autoState == 3){
+			this.ce.takeAlge();
+			if (this.timeInState >=1000){
+				autoState++;
+				timeInState=0;
+				this.ce.stop(); 
+			}
+		}
 
-		else if(autoState== 3){
+		else if(autoState== 4){
 			this.dt.driveForward(-0.2);
 			if (timeInState > 500){
 				autoState++;
