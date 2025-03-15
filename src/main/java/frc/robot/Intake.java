@@ -6,8 +6,6 @@ import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.config.AbsoluteEncoderConfig;
-import com.revrobotics.spark.config.AlternateEncoderConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
@@ -19,14 +17,13 @@ public class Intake {
     SparkMax roller;
     
     public Intake(){
-        this.arm= new SparkMax(8,MotorType.kBrushless); 
-        this.roller= new SparkMax(7,MotorType.kBrushless); 
+        this.arm = new SparkMax(Constant.ArmMotorCAN, MotorType.kBrushless); 
+        this.roller = new SparkMax(7,MotorType.kBrushless); 
 
         
         SparkMaxConfig config = new SparkMaxConfig();
         config.idleMode(IdleMode.kBrake);
 
-        // config.apply(new AlternateEncoderConfig().inverted(true).countsPerRevolution(1250));
         this.arm.configure(config, SparkMax.ResetMode.kResetSafeParameters, SparkMax.PersistMode.kPersistParameters);
         this.roller.configure(new SparkMaxConfig().apply(config),  SparkMax.ResetMode.kResetSafeParameters, SparkMax.PersistMode.kPersistParameters);
 

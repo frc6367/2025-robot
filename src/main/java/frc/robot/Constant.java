@@ -67,6 +67,9 @@ public class Constant {
     public static double effectorLeftLowSpeed = 0.5;
     public static double effectorRightLowSpeed = 0.3;
 
+
+    public static int ArmMotorCAN = 8;
+
     
 
 }
