@@ -28,6 +28,9 @@ public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Drive straight";
   private static final String kCenterTroughAuto = "Center trough";
   private static final String kCenterL3Auto = "Center L3 Auto";
+  private static final String kSideTroughAuto = "Side trough";
+  private static final String kTakeAlgeAuto = "Take Alge auto";
+  
   // private static final String kLeftTroughAuto = "Left trough";
   // private static final String kLeftTroughAuto = "Left trough";
 
@@ -36,7 +39,7 @@ public class Robot extends TimedRobot {
 
   
   //make instances of each of the subsystems 
-  private DriveTrain dt=new DriveTrain();
+private DriveTrain dt=new DriveTrain();
   private Joystick gamepad=new Joystick(Constant.GamePad_Port); 
   private Joystick moveJoystick = new Joystick(Constant.Joystick_Port);
   private final Elevator elevator = new Elevator();
@@ -51,6 +54,10 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Drive straight", kDefaultAuto);
     m_chooser.addOption("Center trough", kCenterTroughAuto);
     m_chooser.addOption("Center l3 Auto", kCenterL3Auto);
+    m_chooser.addOption("Side trough", kSideTroughAuto);
+    m_chooser.addOption("Take Alge Auto", kTakeAlgeAuto);
+
+    
     SmartDashboard.putData("Autonomous to run", m_chooser);
     CameraServer.startAutomaticCapture();
   }
@@ -123,6 +130,12 @@ public class Robot extends TimedRobot {
         break;
       case kCenterL3Auto:
         this.autonomous.centerL3Auto();
+        break;
+      case kSideTroughAuto:
+        this.autonomous.sideTroughAuto();
+        break;
+      case kTakeAlgeAuto:
+        this.autonomous.takeAlgeAuto();
         break;
       default:
         // Put default auto code here
@@ -278,7 +291,7 @@ public class Robot extends TimedRobot {
       coralEffector.removeAlge();
     }
     else{
-      coralEffector.stopAlge(); 
+      coralEffector.stopAlge();
     }
 
 

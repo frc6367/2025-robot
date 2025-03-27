@@ -53,8 +53,95 @@ public class Autonomous {
 		incrementTime(); 
 
 		if (autoState== 0){
+			//What we want to do in state
 			this.dt.driveForward(0.4);
+			
+			//CONDITION TO MOVE ON
 				if (this.time >= 1400){
+					//preparing for next state
+					autoState++;
+					timeInState = 0; 
+
+					//Cleaning up after this state
+					this.dt.setcoast(); 
+					this.dt.stop();
+				
+				}
+			}
+
+		else if(autoState== 1){
+			this.dt.driveForward(0.2);
+			if (timeInState > 1200){
+				autoState++;
+				timeInState = 0; 
+				this.dt.stop();
+
+			}
+
+		}
+		
+		else if(autoState == 2){
+			this.ce.shootAngleL();
+			if (this.timeInState >= 1000){
+				autoState++;
+				timeInState = 0; 
+				this.ce.stop();
+			}
+		}
+		// else if(autoState == 3){
+		// 	this.ce.takeAlge();
+		// 	if (this.timeInState >=1000){
+		// 		autoState++;
+		// 		timeInState=0;
+		// 		this.ce.stop(); 
+		// 	}
+		// }
+
+		else if(autoState== 3){
+			this.dt.driveForward(-0.2);
+			if (timeInState > 500){
+				autoState++;
+				timeInState = 0; 
+				this.dt.stop();
+
+			}
+
+		}
+
+	}
+
+
+	public void takeAlgeAuto(){
+		// incrementTime();
+
+		this.centerTroughAuto();
+
+		if(autoState ==5){
+			this.el.elevatorUp();
+			this.ce.takeAlge();
+			if(this.timeInState >=250){
+				autoState++;
+				timeInState = 0; 
+				this.el.stopElevator();
+				this.ce.stopAlge();
+			}
+		}
+		if(autoState ==6){
+			this.ce.takeAlge();
+			if(this.timeInState>=1000){
+				autoState++;
+				timeInState = 0;
+				this.ce.stopAlge();
+			}
+		}
+
+	}
+	public void sideTroughAuto(){
+		incrementTime(); 
+
+		if (autoState== 0){
+			this.dt.driveForward(0.4);
+				if (this.time >= 3000){
 					autoState++;
 					timeInState = 0; 
 					this.dt.setcoast(); 
@@ -104,7 +191,6 @@ public class Autonomous {
 
 
 	}
-
 	public void centerL3Auto(){
 		incrementTime(); 
 

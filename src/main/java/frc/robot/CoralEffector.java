@@ -52,7 +52,7 @@ public class CoralEffector {
             this.intake(); 
         }
         else if(canSeeCoral()){
-            this.setMotors(0.25); 
+            this.setMotors(0.32); 
             sawCoral = true; 
         }
         else{
