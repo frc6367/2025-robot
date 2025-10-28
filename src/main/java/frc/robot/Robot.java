@@ -5,6 +5,9 @@
 package frc.robot;
 
 
+import com.studica.frc.AHRS;
+import com.studica.frc.AHRS.NavXComType;
+
 // import edu.wpi.first.cameraserver.CameraServer;
 // import edu.wpi.first.math.estimator.PoseEstimator;
 // import edu.wpi.first.math.kinematics.Kinematics;
@@ -37,9 +40,12 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
+  private boolean fieldCentricActive = true;
+  private AHRS navx = new AHRS(NavXComType.kMXP_SPI);
+
   
   //make instances of each of the subsystems 
-private DriveTrain dt=new DriveTrain();
+  private DriveTrain dt=new DriveTrain();
   private Joystick gamepad=new Joystick(Constant.GamePad_Port); 
   private Joystick moveJoystick = new Joystick(Constant.Joystick_Port);
   private final Elevator elevator = new Elevator();
@@ -75,6 +81,8 @@ private DriveTrain dt=new DriveTrain();
     SmartDashboard.putNumber("effectorLeftLowSpeed", Constant.effectorLeftLowSpeed);
     SmartDashboard.putNumber("effectorRightLowSpeed", Constant.effectorRightLowSpeed);
     // intake.zeroEncoder();
+
+    navx.zeroYaw();
   }
 
   /**
@@ -165,10 +173,41 @@ private DriveTrain dt=new DriveTrain();
 
     boolean moveTrigger = moveJoystick.getRawButton(1);
 
-    double vertical = moveJoystick.getRawAxis(Constant.LEFT_AXIS_Y)*-1 * yStrafeMultiplier;
-    double horizontal = moveJoystick.getRawAxis(Constant.RIGHT_AXIS_X)  * xStrafeMultiplier;
+    double y1 = moveJoystick.getRawAxis(Constant.LEFT_AXIS_Y)*-1 * yStrafeMultiplier;
+    double x1 = moveJoystick.getRawAxis(Constant.RIGHT_AXIS_X)  * xStrafeMultiplier;
+
+    SmartDashboard.putNumber("xMoveJoystick", x1);
+    SmartDashboard.putNumber("yMoveJoystick", y1);
+
+
+    // This will be the actual reading from the NavX board
+    double robotYaw = Math.toRadians(navx.getYaw());
+    SmartDashboard.putNumber("rYaw", robotYaw);
+
+    // Initialize (x2, y2)
+    double x2 = x1;
+    double y2 = y1;
+
+    // Overwrite only when the field-centric mode constant is set
+    if (fieldCentricActive) {
+      x2 = (x1*Math.cos(robotYaw)) - (y1*Math.sin(robotYaw));
+      y2 = (x1*Math.sin(robotYaw)) + (y1*Math.cos(robotYaw));
+    }
+
+    // Allow toggling of field centric for debugging
+    if(moveJoystick.getRawButtonPressed(7)) {
+      fieldCentricActive = !fieldCentricActive; 
+    }
+
+    // Allow re-zeroing for calibration
+    if (moveJoystick.getRawButtonPressed(10)) {
+      navx.zeroYaw();
+    }
+
+    SmartDashboard.putNumber("xFieldCentric", x2);
+    SmartDashboard.putNumber("yFieldCentric", y2);
     
-    // TODO: Deadband horizontal and vertical
+    // TODO: Deadband x1 and y1
     
     double spin = moveJoystick.getRawAxis(Constant.LEFT_AXIS_X);
     if (spin < 0.5 && spin > -0.5) {
@@ -177,11 +216,11 @@ private DriveTrain dt=new DriveTrain();
     spin = spin*0.75;
 
     double maxSpeed = 0.8;
-    double max = Math.max(Math.abs(vertical) + Math.abs(horizontal) + Math.abs(spin), 1);
-    double fl = (vertical + horizontal + spin)/max;
-    double bl = (vertical - horizontal + spin)/max;
-    double fr = (vertical - horizontal - spin)/max;
-    double br = (vertical + horizontal - spin)/max;
+    double max = Math.max(Math.abs(y2) + Math.abs(x2) + Math.abs(spin), 1);
+    double fl = (y2 + x2 + spin)/max;
+    double bl = (y2 - x2 + spin)/max;
+    double fr = (y2 - x2 - spin)/max;
+    double br = (y2 + x2 - spin)/max;
 
     SmartDashboard.putNumber("Max Speed", maxSpeed);
     if (moveTrigger) {
